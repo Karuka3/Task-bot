@@ -20,5 +20,12 @@ class TodoistItems:
         self.api = TodoistAPI(self.api_token)
         self.api.sync()
 
+    def key_check(self, item, key):
+        try:
+            result = item[key]
+            return result
+        except:
+            return False
+
 
 # api_token = "565a8c1cc785965dae2950a9cbec280132a4fbe7"
