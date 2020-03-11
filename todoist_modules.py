@@ -27,5 +27,22 @@ class TodoistItems:
         except:
             return False
 
+    def date_check(self, item, date):
+        if self.key_check(item, 'due'):
+            if item['due']['lang'] == 'ja':
+                if date.replace('/', '-') in item['due']['date']:
+                    return True
+                elif '毎日' in item['due']['string']:
+                    return True
+            else:
+                try:
+                    date_time = datetime.strptime(item['due']['date'], '%Y-%m-%dT%H:%M:%SZ')
+                    date_time = pytz.utc.localize(date_time).astimezone(pytz.timezone("Asia/Tokyo"))
+                    if date == date_time.strftime('%Y/%m/%d'):
+                        return True
+                except ValueError:
+                    pass
+        return False
+
 
 # api_token = "565a8c1cc785965dae2950a9cbec280132a4fbe7"
