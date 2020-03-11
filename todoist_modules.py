@@ -52,5 +52,9 @@ class TodoistItems:
         project = self.api.projects.get_by_id(project_id)
         return project['name']
 
+    def find_by_date(self, date):
+        return [item for item in self.api['items'] if self.date_check(item, date)]
+
+
 
 # api_token = "565a8c1cc785965dae2950a9cbec280132a4fbe7"
