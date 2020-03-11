@@ -44,5 +44,13 @@ class TodoistItems:
                     pass
         return False
 
+    def get_project_name(self, item):
+        if self.key_check(item, 'project_id'):
+            project_id = item['project_id']
+        else:
+            project_id = item['parent_id']
+        project = self.api.projects.get_by_id(project_id)
+        return project['name']
+
 
 # api_token = "565a8c1cc785965dae2950a9cbec280132a4fbe7"
