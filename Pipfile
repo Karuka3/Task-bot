@@ -9,6 +9,7 @@ pylint = "*"
 
 [packages]
 todoist-python = "*"
+pytz = "*"
 
 [requires]
 python_version = "3.7"
