@@ -7,15 +7,6 @@ from datetime import datetime, timedelta
 
 class TodoistItems:
     def __init__(self, token):
-        self.weekdays = {
-            0: ['mon', '月曜'],
-            1: ['tue', '火曜'],
-            2: ['wed', '水曜'],
-            3: ['thu', '木曜'],
-            4: ['fri', '金曜'],
-            5: ['sat', '土曜'],
-            6: ['sun', '日曜'],
-        }
         self.api_token = token
         self.api = TodoistAPI(self.api_token)
         self.api.sync()
