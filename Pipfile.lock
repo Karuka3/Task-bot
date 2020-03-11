@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "150909080e006e8e06db12921e0b3a6a3712ffcde0e4681d4bf9f113e6feb687"
+            "sha256": "a0f48e6ca1f0aca2d61375c4f2789beaf1cc52a89a403b335aea2f8b6117c64e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -52,6 +52,27 @@
             ],
             "version": "==2.23.0"
         },
+        "six": {
+            "hashes": [
+                "sha256:236bdbdce46e6e6a3d61a337c0f8b763ca1e8717c03b369e87a7ec7ce1319c0a",
+                "sha256:8f3cd2e254d8f793e7f3d6d9df77b92252b52637291d0f0da013c76ea2724b6c"
+            ],
+            "version": "==1.14.0"
+        },
+        "slackbot": {
+            "hashes": [
+                "sha256:94a026738096b5aa6a6e98bfc230594e3d9a11278fbc910583f613cd7a8e2ca5",
+                "sha256:c9da20cb34c8e898520f454d39cddd8abee8d9a612983717bbd4694157e0e1fc"
+            ],
+            "index": "pypi",
+            "version": "==0.5.6"
+        },
+        "slacker": {
+            "hashes": [
+                "sha256:1ae7c597025c114e202b5c880345f150f795665bfc638010cac614ede4ed5108"
+            ],
+            "version": "==0.14.0"
+        },
         "todoist-python": {
             "hashes": [
                 "sha256:da22f97c353fb0af435dd06194b1c72d0f8ac1c6ea987af0d51b3fb091bb114e",
@@ -66,6 +87,13 @@
                 "sha256:87716c2d2a7121198ebcb7ce7cccf6ce5e9ba539041cfbaeecfb641dc0bf6acc"
             ],
             "version": "==1.25.8"
+        },
+        "websocket-client": {
+            "hashes": [
+                "sha256:15f585566e2ea7459136a632b9785aa081093064391878a448c382415e948d72",
+                "sha256:91222bb3a22ba989ac87eec9121655f295dcb746b6207c5576ffa549ab69302c"
+            ],
+            "version": "==0.44.0"
         }
     },
     "develop": {

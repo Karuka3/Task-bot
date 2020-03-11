@@ -10,6 +10,7 @@ pylint = "*"
 [packages]
 todoist-python = "*"
 pytz = "*"
+slackbot = "*"
 
 [requires]
 python_version = "3.7"
