@@ -11,6 +11,7 @@ pylint = "*"
 todoist-python = "*"
 pytz = "*"
 slackbot = "*"
+python-crontab = "*"
 
 [requires]
 python_version = "3.7"
