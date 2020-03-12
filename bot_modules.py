@@ -52,7 +52,7 @@ def task_list(message, date):
     t = TodoistItems(os.environ["TODOIST_API_TOKEN"])
     items = t.find_by_date(target_date)
 
-    for i, item in items:
+    for i, item in enumerate(items):
         date_string = item['due']['string']
         mark = confirm_checked(item, target_date)
         date, time = fix_date_time(item, date_string)
