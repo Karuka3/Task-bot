@@ -14,3 +14,6 @@ slackbot = "*"
 
 [requires]
 python_version = "3.7"
+
+[scripts]
+bot = "python bot.py runserver"
