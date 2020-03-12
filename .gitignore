@@ -1,4 +1,4 @@
 \.vscode
-bot_start.bat
+token.bat
 bot_start.sh
 git_pull.sh
