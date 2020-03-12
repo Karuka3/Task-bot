@@ -1,1 +1,4 @@
 \.vscode
+bot_start.bat
+bot_start.sh
+git_pull.sh
