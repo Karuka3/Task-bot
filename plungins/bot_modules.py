@@ -46,7 +46,7 @@ def fix_date_time(item, date_string):
 
 def get_task(date):
     target_date = confirm_target_date(date)
-    output = "%sの予定\n" % target_date
+    output = "%sの予定だよ\n確認してね!\n" % target_date
     texts = {}
     t = TodoistItems(os.environ["TODOIST_API_TOKEN"])
     items = t.find_by_date(target_date)
