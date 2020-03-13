@@ -1,5 +1,5 @@
 from slackbot.bot import respond_to
-from todoist_modules import TodoistItems
+from plugins import todoist_modules
 from datetime import datetime
 from pytz import timezone
 import os
@@ -48,7 +48,7 @@ def get_task(date):
     target_date = confirm_target_date(date)
     output = "%sの予定だよ\n確認してね!\n" % target_date
     texts = {}
-    t = TodoistItems(os.environ["TODOIST_API_TOKEN"])
+    t = todoist_modules.TodoistItems(os.environ["TODOIST_API_TOKEN"])
     items = t.find_by_date(target_date)
 
     for i, item in enumerate(items):
