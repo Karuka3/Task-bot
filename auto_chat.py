@@ -1,7 +1,6 @@
 import os
 from slacker import Slacker
-from todoist_modules import TodoistItems
-import bot_modules as bot
+from plugins import bot_modules as bot
 
 
 def main():
