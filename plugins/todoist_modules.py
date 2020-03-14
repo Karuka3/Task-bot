@@ -2,7 +2,8 @@ import os
 import re
 import pytz
 from todoist import TodoistAPI
-from datetime import datetime, timedelta
+from datetime import datetime
+from dateutil.parser import parse
 
 
 class TodoistItems:
@@ -27,9 +28,7 @@ class TodoistItems:
                     return True
             else:
                 try:
-                    date_time = datetime.strptime(item['due']['date'], '%Y-%m-%dT%H:%M:%SZ')
-                    date_time = pytz.utc.localize(date_time).astimezone(pytz.timezone("Asia/Tokyo"))
-                    if date == date_time.strftime('%Y/%m/%d'):
+                    if date == parse(item['due']['date']).strftime('%Y/%m/%d'):
                         return True
                 except ValueError:
                     pass

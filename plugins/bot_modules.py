@@ -1,6 +1,6 @@
 from slackbot.bot import respond_to
-from plugins import todoist_modules
-from datetime import datetime
+from plugins import todoist_modules as todo
+from datetime import datetime, timedelta
 from pytz import timezone
 import os
 
@@ -9,7 +9,7 @@ def confirm_target_date(date):
     if date == "今日":
         target_date = datetime.now().astimezone(timezone('Asia/Tokyo')).strftime('%Y/%m/%d')
     elif date == "明日":
-        tomorrow = datetime.now().astimezone(timezone('Asia/Tokyo')) + datetime.timedelta(days=1)
+        tomorrow = datetime.now().astimezone(timezone('Asia/Tokyo')) + timedelta(days=1)
         target_date = tomorrow.strftime('%Y/%m/%d')
     else:
         target_date = datetime.strptime(date, '%Y/%m/%d').astimezone(timezone('Asia/Tokyo')).strftime('%Y/%m/%d')
@@ -26,36 +26,35 @@ def confirm_checked(item, date):
     return mark
 
 
-def fix_date_time(item, date_string):
+def split_datetime(item, date_string):
+    time = ''
     if item['due']['lang'] == 'ja':
         if '毎週' in date_string:
-            date, time = date_string.replace(' ', '').split('曜日')
+            time = date_string.replace(' ', '').split('曜日')[1]
         else:
-            date, time = date_string.replace('月', '/').replace(' ', '').split('日')
+            time = date_string.replace('月', '/').replace(' ', '').split('日')[1]
     else:
         if 'every' in date_string:
-            if 'at' in date_string:
-                date, time = date_string.replace(' ', '').replace('sat', 'sa').split('at')
-            else:
-                date = date_string.replace(' ', '')
-                time = '12:00'
+            dt = date_string.split()
+            if len(dt) == 3:
+                time = dt[2]
         else:
-            date, time = date_string.replace('-', '/').split(' ')
-    return date, time
+            dt = date_string.split()
+            if len(dt) == 3:
+                time = dt[2]
+    return time
 
 
 def get_task(date):
     target_date = confirm_target_date(date)
     output = "%sの予定だよ\n確認してね!\n" % target_date
     texts = {}
-    t = todoist_modules.TodoistItems(os.environ["TODOIST_API_TOKEN"])
+    t = todo.TodoistItems("273a17fc849fd710d8736a7a43388c49af09d953")
     items = t.find_by_date(target_date)
 
     for i, item in enumerate(items):
-        date_string = item['due']['string']
         mark = confirm_checked(item, target_date)
-        date, time = fix_date_time(item, date_string)
-        items[i]['date'] = date
+        time = split_datetime(item, item['due']['string'])
         items[i]['time'] = time
 
         if time == '':
@@ -72,6 +71,7 @@ def get_task(date):
 
     for _k, v in enumerate(sorted(texts)):
         output += "%s %s %s\n" % (texts[v]['mark'], texts[v]['time'], texts[v]['subject'])
+
     return output
 
 
