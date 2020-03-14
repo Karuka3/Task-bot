@@ -17,4 +17,4 @@ python-crontab = "*"
 python_version = "3.7"
 
 [scripts]
-bot = "python bot.py runserver"
+bot = "python run.py runserver"
