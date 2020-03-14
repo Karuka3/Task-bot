@@ -5,7 +5,7 @@ from pytz import timezone
 import os
 
 
-def confirm_target_date(date):
+def confirm_date(date):
     if date == "今日":
         target_date = datetime.now().astimezone(timezone('Asia/Tokyo')).strftime('%Y/%m/%d')
     elif date == "明日":
@@ -45,9 +45,21 @@ def split_datetime(item, date_string):
     return time
 
 
-def get_task(date):
-    target_date = confirm_target_date(date)
-    output = "%sの予定だよ\n確認してね!\n" % target_date
+def confirm_time(hour, date):
+    if hour >= 7 and hour < 12:
+        output = "おはようございます！\n%sのタスクです！%sも頑張ってねっ！\n" % date
+    elif hour >= 12 and hour < 18:
+        output = "午後からも頑張っていこうねっ！タスク確認です！\n"
+    elif hour >= 18 and hour < 21:
+        output == "今日もお疲れさまだよっ！\n%sのタスクです！%sも頑張ってねっ！\n" % date
+    else:
+        output = "%sの予定です！\n確認してね！\n" % date
+    return output
+
+
+def get_task(date, hour):
+    target_date = confirm_date(date)
+    output = confirm_time(hour, date)
     texts = {}
     t = todo.TodoistItems("273a17fc849fd710d8736a7a43388c49af09d953")
     items = t.find_by_date(target_date)
@@ -77,5 +89,5 @@ def get_task(date):
 
 @respond_to('^(.*)の予定$')
 def task_list(message, date):
-    output = get_task(date)
+    output = get_task(date, None)
     message.send(output)
