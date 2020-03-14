@@ -1,4 +1,4 @@
 \.vscode
+\__pycache__
 token.bat
-bot_start.sh
-git_pull.sh
+
