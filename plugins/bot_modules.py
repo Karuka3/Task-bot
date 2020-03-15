@@ -45,13 +45,13 @@ def split_datetime(item, date_string):
     return time
 
 
-def confirm_time(hour, date):
-    if 7 <= hour < 12:
-        output = "おはようございます！\n%sのタスクです！%sも頑張ってねっ！\n" % date
-    elif 12 <= hour < 18:
+def confirm_time(date, hour):
+    if hour < 12 and hour >= 7:
+        output = "おはようございます！\n%sのタスクです！\n" % date
+    elif hour < 18 and hour >= 12:
         output = "午後からも頑張っていこうねっ！タスク確認です！\n"
-    elif 18 <= hour < 21:
-        output == "今日もお疲れさまだよっ！\n%sのタスクです！%sも頑張ってねっ！\n" % date
+    elif hour < 21 and hour >= 18:
+        output = "今日もお疲れさまですっ！\n%sのタスクです！\n" % date
     else:
         output = "%sの予定です！\n確認してね！\n" % date
     return output
@@ -59,9 +59,9 @@ def confirm_time(hour, date):
 
 def get_task(date, hour):
     target_date = confirm_date(date)
-    output = confirm_time(hour, date)
+    output = confirm_time(date, hour)
     texts = {}
-    t = todo.TodoistItems("273a17fc849fd710d8736a7a43388c49af09d953")
+    t = todo.TodoistItems(os.getenv("TODOIST_API_TOKEN"))
     items = t.find_by_date(target_date)
 
     for i, item in enumerate(items):
@@ -89,5 +89,6 @@ def get_task(date, hour):
 
 @respond_to('^(.*)の予定$')
 def task_list(message, date):
-    output = get_task(date, 100)
+    time = datetime.now().hour
+    output = get_task(date, time)
     message.send(output)
