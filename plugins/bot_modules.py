@@ -46,11 +46,11 @@ def split_datetime(item, date_string):
 
 
 def confirm_time(hour, date):
-    if hour >= 7 and hour < 12:
+    if 7 <= hour < 12:
         output = "おはようございます！\n%sのタスクです！%sも頑張ってねっ！\n" % date
-    elif hour >= 12 and hour < 18:
+    elif 12 <= hour < 18:
         output = "午後からも頑張っていこうねっ！タスク確認です！\n"
-    elif hour >= 18 and hour < 21:
+    elif 18 <= hour < 21:
         output == "今日もお疲れさまだよっ！\n%sのタスクです！%sも頑張ってねっ！\n" % date
     else:
         output = "%sの予定です！\n確認してね！\n" % date
@@ -89,5 +89,5 @@ def get_task(date, hour):
 
 @respond_to('^(.*)の予定$')
 def task_list(message, date):
-    output = get_task(date, None)
+    output = get_task(date, 100)
     message.send(output)
