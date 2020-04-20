@@ -7,12 +7,14 @@ import os
 
 def confirm_date(date):
     if date == "今日":
-        target_date = datetime.now().astimezone(timezone('Asia/Tokyo')).strftime('%Y/%m/%d')
+        target_date = datetime.now().astimezone(
+            timezone('Asia/Tokyo')).strftime('%Y/%m/%d')
     elif date == "明日":
         tomorrow = datetime.now().astimezone(timezone('Asia/Tokyo')) + timedelta(days=1)
         target_date = tomorrow.strftime('%Y/%m/%d')
     else:
-        target_date = datetime.strptime(date, '%Y/%m/%d').astimezone(timezone('Asia/Tokyo')).strftime('%Y/%m/%d')
+        target_date = datetime.strptime(
+            date, '%Y/%m/%d').astimezone(timezone('Asia/Tokyo')).strftime('%Y/%m/%d')
     return target_date
 
 
@@ -81,14 +83,24 @@ def get_task(date, hour):
         }}
         texts.update(param)
 
-    for _k, v in enumerate(sorted(texts)):
-        output += "%s %s %s\n" % (texts[v]['mark'], texts[v]['time'], texts[v]['subject'])
+    if len(texts) == 0:
+        isTask = False
+    else:
+        isTask = True
 
-    return output
+    for _, v in enumerate(sorted(texts)):
+        output += "%s %s %s\n" % (texts[v]['mark'],
+                                  texts[v]['time'],
+                                  texts[v]['subject'])
+
+    return output, isTask
 
 
 @respond_to('^(.*)の予定$')
 def task_list(message, date):
     time = datetime.now().hour
-    output = get_task(date, time)
-    message.send(output)
+    output, isTask = get_task(date, time)
+    if isTask:
+        message.send(output)
+    else:
+        message.send("タスクはないよ")

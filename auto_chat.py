@@ -11,8 +11,9 @@ def main():
         target = "明日"
     else:
         target = "今日"
-    task = bot.get_task(target, time)
-    slack.chat.post_message(channel='to-do', text=task, as_user=True)
+    task, isTask = bot.get_task(target, time)
+    if isTask:
+        slack.chat.post_message(channel='to-do', text=task, as_user=True)
 
 
 if __name__ == "__main__":
